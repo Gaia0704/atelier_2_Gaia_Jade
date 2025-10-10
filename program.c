@@ -67,6 +67,10 @@ int weight;
 
     printf("Valeur saisie : %d\n", weight);
 
+
+int headwing;
+    headwing: wind_speed*cos(wind_angle);
+    print("%d",headwing);
      return 0;
 }
   
