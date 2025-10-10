@@ -27,7 +27,7 @@ int main()
     printf("9) Point de non-retour");
     printf("10) Vitesse de descente");
 
-    if(choix==1)
+    if(choix==1 || choix==)
     {
         b_pressure_altitude = true;
         b_pressure = true;
