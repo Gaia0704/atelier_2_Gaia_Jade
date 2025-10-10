@@ -19,7 +19,7 @@ int wind_speed;
 
     printf("Valeur saisie : %d\n", wind_speed);
 
-int fuel;
+/*int fuel;
     printf("Carburant disponible de [20 à 350000] litres : ");
     scanf("%d" ,& fuel);
 
@@ -65,13 +65,14 @@ int weight;
     printf("Poids de [500 à 600000] :");
     scanf("%d", & weight);
 
-    printf("Valeur saisie : %d\n", weight);
+    printf("Valeur saisie : %d\n", weight);*/
 
 
-int headwing;
-    headwing: wind_speed*cos(wind_angle);
-    print("%d",headwing);
+double headwing;
+    headwing = wind_speed*cos(wind_angle);
+    printf("vent de face  = %d", headwing);
      return 0;
 }
   
 
+1.03
