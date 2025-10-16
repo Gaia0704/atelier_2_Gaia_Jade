@@ -26,29 +26,35 @@ int main()
     bool b_ias = false;
     bool b_weight = false;
 
-    int choix;
-    printf("1) Altitude-pression\n");
-    printf("2) Vitesse vraie\n ");
-    printf("3) Vitesse-sol\n");
-    printf("4) Distance franchissable\n");
-    printf("5) Distance de décollage\n");
-    printf("6) Charge alaire\n");
-    printf("7) Taux de montée\n");
-    printf("8) Point de non-retour\n");
-    printf("9) Vitesse de descente\n");
-    scanf("Votre Choix est le %d");
+    printf (" -----------Menu------------\n");
+    printf("| 1) Altitude-pression      |\n");
+    printf("| 2) Vitesse vraie          |\n");
+    printf("| 3) Vitesse-sol            |\n");
+    printf("| 4) Distance franchissable |\n");
+    printf("| 5) Distance de décollage  |\n");
+    printf("| 6) Charge alaire          |\n");
+    printf("| 7) Taux de montée         |\n");
+    printf("| 8) Point de non-retour    |\n");
+    printf("| 9) Vitesse de descente    |\n");
+    printf(" ---------------------------\n");
 
-    if(choix==1 || choix == 7)//press alti et rate of climb good
+    int choix_multiple;
+    printf("Entrez vos choix entre 1 et 9 (exemple 351 pour 3,5 et 1) \n");
+    scanf("%d", &choix_multiple);
+
+    while (choix_multiple > 0) 
     {
-        b_rate_of_climb = true;
+    int chiffre = choix_multiple % 10; 
+    choix_multiple = choix_multiple / 10;
 
+    if(chiffre==1)//press alti 
+    {
         b_pressure_altitude = true;
         b_pressure = true;
         
-        b_temperature = true;
     }
 
-    if (choix==2) // tas good
+    else if (chiffre==2) // tas good
     {
         b_tas = true;
         b_ias = true;
@@ -57,7 +63,7 @@ int main()
         b_pressure = true;
     }
 
-    if(choix == 3)//ground speed et descent speed good
+    else if(chiffre == 3)//ground speed
     {
         b_descent_speed = true;
         b_ground_speed = true;
@@ -72,7 +78,7 @@ int main()
         b_wind_angle = true;
     }
 
-    if (choix == 4) // range good
+    else if (chiffre == 4) // range good
     {
         b_range = true;
         b_fuel = true;
@@ -88,7 +94,7 @@ int main()
         b_cossumption= true;
     }
 
-    if (choix == 5)// takeoff good
+    else if (chiffre == 5)// takeoff good
     {
         b_takeoff = true;
 
@@ -108,104 +114,182 @@ int main()
         b_weight= true;
     }
 
-    if(choix == 6) // wind loading
+    else if(chiffre == 6) // wind loading
     {
         b_wing_loading = true;
         b_weight = true;
         b_wing_surface= true;
     }
 
-    if (choix == 8)// no return
+    else if (chiffre == 7) // rate of climb good
+    {
+        b_rate_of_climb = true;
+
+        b_pressure_altitude = true;
+        b_pressure = true;
+        
+        b_temperature = true;
+    }
+
+    else if (chiffre == 8)// no return
     {
         b_no_return = true;
     }
 
-double wind_angle;
-if (b_wind_angle)
+    else if (chiffre == 9)//descent speed good
     {
-        printf("Direction relative du vent de [-3.14159265 à 3.14159265] radian : ");
-        scanf("%lf", & wind_angle); 
+        b_descent_speed = true;
+        b_ground_speed = true;
+        b_tas = true;
+        b_ias = true;
 
-        printf("Valeur saisie : %lf\n", wind_angle);
+        b_pressure_altitude = true;
+        b_pressure = true;
+
+        b_headwing = true;
+        b_wind_speed = true;
+        b_wind_angle = true;
+    }
+}
+
+double wind_angle;
+if (b_wind_angle) 
+    {
+        do 
+        {
+            printf("Angle du vent [-3.1416 à 3.1416] rad : ");
+            scanf("%lf", &wind_angle);
+            if (wind_angle < -3.14159265 || wind_angle > 3.14159265)
+                printf("Valeur invalide, recommence.\n");
+        } 
+        while (wind_angle < -3.14159265 || wind_angle > 3.14159265);
+        printf("Valeur saisie :%lf\n", wind_angle);
     }
 
 int wind_speed;
-if (b_wind_speed)
+if (b_wind_speed) 
     {
-        printf("Vitesse du vent de [0 à 150] kts : ");
-        scanf("%d",& wind_speed);
-
-        printf("Valeur saisie : %d\n", wind_speed);
+        do {
+            printf("Vitesse du vent [0 à 150] kts: ");
+            scanf("%lf", &wind_angle);
+            if (wind_angle < 0 || wind_angle > 150)
+                printf("Valeur invalide, recommencez.\n");
+        } 
+        while (wind_angle < 0 || wind_angle > 150);
+        printf("Valeur saisie : %d\n" , wind_speed);
     }
 
 int fuel;
-if (fuel)
+if (b_fuel)
     {
-        printf("Carburant disponible de [20 à 350000] litres : ");
-        scanf("%d" ,& fuel);
-
+        do 
+        {
+            printf("Carburant disponible de [20 à 350000] litres : ");
+            scanf("%d" ,& fuel);
+            if (fuel < 20 || fuel > 350000)
+                printf("Valeur invalide, recommencez. \n");
+        }
+        while (fuel < 20 || fuel > 350000);
         printf("Valeur saisie : %d\n" , fuel);
+        
     }
 
 int conssumption; 
 if(b_cossumption)
     {
-        printf("Consommation de [10 à 15000] litres/h : "); 
-        scanf("%d" , & conssumption); 
-
+        do
+        {
+            printf("Consommation de [10 à 15000] litres/h : "); 
+            scanf("%d" , & conssumption); 
+            if (conssumption < 10 || conssumption > 15000)
+                printf("valeur invalide, recommencez. \n");
+        } 
+        while (conssumption < 10 || conssumption > 15000);
         printf("Valeur saisie : %d\n" , conssumption);
+        
     } 
 
 int wing_surface; 
 if(b_wing_surface)
     {
-        printf("Surface alaire de [5 à 900] m^2 : "); 
-        scanf("%d" , & wing_surface); 
-
+        do
+        {
+            printf("Surface alaire de [5 à 900] m^2 : "); 
+            scanf("%d" , & wing_surface);
+            if (wing_surface < 5 || wing_surface > 900)
+                printf("Valeur invalide, recommencez. \n");
+        } 
+        while (wing_surface < 5 || wing_surface > 900); 
         printf("Valeur saisie : %d\n" , wing_surface);
     }
 
 int pressure;
 if(b_pressure)
     {
-        printf("Pression ambiante de [300 à 1050] hPa/mb : "); 
-        scanf("%d" , & pressure);
+        do
+        {
+            printf("Pression ambiante de [300 à 1050] hPa/mb : "); 
+            scanf("%d" , & pressure);
+            if (pressure < 300 || pressure > 1050)
+                printf("Valeur invalide, recommencez. \n");
+        } 
+        while (pressure < 300 || pressure > 1050);
         printf("Valeur saisie: %d\n", pressure);
+
     }
 
 int temperature;
 if(b_temperature)
     {
-        printf("Temperature de [-50 à 5]°C :");
-        scanf("%d", & temperature);
-
+        do
+        {
+            printf("Temperature de [-50 à 50]°C :");
+            scanf("%d", & temperature);
+            if (temperature < -50 || temperature > 50)
+                printf("Valeur invalide, recommencez. \n");
+        }
+        while (temperature < -50 || temperature > 50);
         printf("Valeur saisie: %d\n ", temperature);
     }
 
 int altitude;
 if (b_altitude)
     {
-        printf("Altitude de [0 à 19500]ft : ");
-        scanf("%d", & altitude);
-
+        do
+        {
+            printf("Altitude de [0 à 19500]ft : ");
+            scanf("%d", & altitude);
+            if (altitude < 0 || altitude > 19500)
+                printf("Valeur invalide, recommencez. \n");
+        } while (altitude < 0 || altitude > 19500);
         printf("Valeur saisie : %d\n", altitude);
     }
 
 int ias;
 if (b_ias)
     {
-        printf("Indicated Air Speed de [0 à 500]kts :");
-        scanf("%d", &ias);
-
+        do
+        {
+            printf("Indicated Air Speed de [0 à 500]kts :");
+            scanf("%d", &ias);
+            if (ias < 0 || ias > 500)
+                printf("Valeur invalide, recommencez. \n");
+        } 
+        while (ias < 0 || ias > 500);
         printf("Valeur saisie : %d\n", ias);
     }
 
 int weight;
 if (b_weight)
     {
-        printf("Poids de [500 à 600000] :");
-        scanf("%d", & weight);
-
+        do
+        {
+            printf("Poids de [500 à 600000] :");
+            scanf("%d", & weight);
+            if (weight < 500 || weight > 600000)
+                printf("Valeur invalide, recommencez. \n");
+        }
+        while(weight < 500 || weight > 600000);
         printf("Valeur saisie : %d\n", weight);
     }
 
@@ -222,7 +306,7 @@ int pressure_altitude;
 if(b_pressure_altitude)
     {
         pressure_altitude = altitude+(1023-pressure)*30;
-        printf("prssion-altitude =%d\n",pressure_altitude);
+        printf("pression-altitude =%d\n",pressure_altitude);
     }
 
 int tas;
@@ -233,7 +317,7 @@ if(b_tas)
     }
 
 int ground_speed;
-if (ground_speed)
+if (b_ground_speed)
     {   
         ground_speed = tas - headwing;
         printf("Vitesse-sol = %d\n", ground_speed);
@@ -266,6 +350,7 @@ if (b_rate_of_climb)
         rate_of_climb = 700*(1-pressure_altitude/10000)*(1-0.01*fmax(0,temperature-15));
         printf ("taux de montée = %lf\n", rate_of_climb); 
     }
+
 int no_return;
 if (b_no_return)
     {
